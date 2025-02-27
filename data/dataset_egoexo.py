@@ -323,7 +323,7 @@ class Dataset_EgoExo_images(Dataset):
 
 class Dataset_EgoExo_images_multi(Dataset):
     def __init__(self, opt, root="dataset", slice_window=21,
-                image_folder="/home/jpuentes/jpuentes3/videos/image_takes/aria_214", use_pseudo=False):
+                image_folder="dataset/image_takes/aria_214", use_pseudo=False):
         
         super(Dataset_EgoExo_images_multi,self).__init__()
 

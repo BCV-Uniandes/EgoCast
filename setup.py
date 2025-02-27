@@ -16,6 +16,21 @@ setup(
         "regex",
         "dataclasses_json",
         "iopath",
+        "numpy",
+        "torch",
+        "torchvision",
+        "torchaudio",
+        "ipython",
+        "matplotlib",
+        "pandas",
+        "scikit-image",
+        "joblib",
+        "einops",
+        "timm",
+        "wandb",
+    ],
+    dependency_links=[
+        "https://download.pytorch.org/whl/cu121"
     ],
     tests_require=[
         "pytest",
@@ -27,7 +42,7 @@ setup(
             "ego4d=ego4d.cli.cli:main",
             "egoexo=ego4d.egoexo.download.cli:main",
             "egoexo_internal=ego4d.internal.download.cli:internal_main",
-            "ego4d_validation = ego4d.internal.validation.cli:main",
+            "ego4d_validation=ego4d.internal.validation.cli:main",
         ],
     },
 )
