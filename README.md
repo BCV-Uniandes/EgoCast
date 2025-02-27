@@ -8,7 +8,7 @@
         <td>
             Maria Escobar<sup>1</sup>, Juanita Puentes<sup>1</sup>, Cristhian Forigua<sup>1</sup>, Jordi Pont-Tuset<sup>2</sup>, Kevis-Kokitsi Maninis<sup>2</sup>, Pablo Arbelaez<sup>1</sup>.
             <strong>EgoCast: Forecasting Egocentric Human Pose in the Wild.</strong>
-            arXiv, 2024.
+            arXiv, 2025.
         </td>
     </tr>
 </table>
