@@ -327,7 +327,7 @@ class SpaceTimeTransformer(nn.Module):
             x = blk(x, self.einops_from_space, self.einops_to_space, self.einops_from_time,
                     self.einops_to_time,
                     time_n=n, space_f=f)
-
+        #breakpoint()
         x = self.norm(x)[:, 0]
         x = self.pre_logits(x)
 

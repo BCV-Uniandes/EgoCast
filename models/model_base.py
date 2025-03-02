@@ -154,31 +154,6 @@ class ModelBase():
         torch.save(state_dict, save_path)
 
     # ----------------------------------------
-    # # load the state_dict of the network OLD ONE, DOESN'T LOAD THE STABILIZER EVERRR
-    # # ----------------------------------------
-    # def load_network(self, load_path, network, strict=True, param_key='params'):
-    #     network = self.get_bare_model(network)
-    #     if strict:
-    #         state_dict = torch.load(load_path)
-    #         if param_key in state_dict.keys():
-    #             state_dict = state_dict[param_key]
-    #         network.load_state_dict(state_dict, strict=strict)
-    #     else:
-    #         state_dict_old = torch.load(load_path)
-    #         state_dict_old_ = {}
-    #         for param_key,value in state_dict_old.items():
-    #             if 'stabilizer' not in param_key:
-    #                 state_dict_old_[param_key]=value
-    #             #else:
-    #             #    state_dict_old = state_dict_old[param_key]
-    #         #state_dict = network.state_dict()
-    #         #for ((key_old, param_old),(key, param)) in zip(state_dict_old.items(), state_dict.items()):
-    #         #    state_dict[key] = param_old
-    #         #network.load_state_dict(state_dict, strict=True)
-    #         network.load_state_dict(state_dict_old_, strict=False)
-    #         del state_dict_old, state_dict_old_
-
-    # ----------------------------------------
     # load the state_dict of the network
     # ----------------------------------------
     def load_network(self, load_path, network, strict=True, param_key='params'):

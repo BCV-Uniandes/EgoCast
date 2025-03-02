@@ -20,7 +20,7 @@ def get_timestamp():
     return datetime.now().strftime('_%y%m%d_%H%M%S')
 
 
-def parse(opt_path, is_train=True):
+def parse(opt_path, is_train=True, gpu=None):
 
     # ----------------------------------------
     # remove comments starting with '//'
@@ -88,9 +88,16 @@ def parse(opt_path, is_train=True):
     # ----------------------------------------
     # GPU devices
     # ----------------------------------------
-    gpu_list = ','.join(str(x) for x in opt['gpu_ids'])
-    os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
-    print('export CUDA_VISIBLE_DEVICES=' + gpu_list)
+    # gpu_list = ','.join(str(x) for x in opt['gpu_ids'])
+    # os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
+    # print('export CUDA_VISIBLE_DEVICES=' + gpu_list)
+    if gpu is None:
+        gpu_list = ','.join(str(x) for x in opt['gpu_ids'])
+        os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
+        print('export CUDA_VISIBLE_DEVICES=' + gpu_list)
+    else:
+        os.environ['CUDA_VISIBLE_DEVICES'] = gpu
+        print('export CUDA_VISIBLE_DEVICES=' + gpu)
 
     # ----------------------------------------
     # default setting for distributeddataparallel

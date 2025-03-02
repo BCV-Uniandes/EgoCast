@@ -1,0 +1,98 @@
+{
+  "task": "EgoExo"  //  root/task/videos-models-options
+  , "model": "egocast" // "plain"
+  , "gpu_ids": [5] //
+
+  , "merge_bn": true               // merge BN
+  , "merge_bn_startpoint": 400000  // merge BN after N iterations
+
+  , "path": {
+    "root": "results/results_EgoCast_15Frames"            // "results" 
+    , "pretrained_netG":null  //Add the path of the current-frame estimation model you want to use
+  }
+  , "support_dir": "support_data/"
+  ,"wandb_mode":"disabled" //online, disabled
+  ,"wandb_name":"results_forecasting_15frames"
+  , "datasets": {
+    "train": {
+      "name": "train_dataset"           // just name
+      , "dataset_type": "egoexo"         // "amass" 
+      , "dataroot": "./data_cameraready_fps60"// path of training dataset
+      , "split": "train"
+      , "dataloader_shuffle": true
+      , "dataloader_num_workers": 0
+      , "dataloader_batch_size": 24     // batch size 1 | 16 | 32 | 48 | 64 | 128 | 256
+      , "num_input": 1
+      , "window_size": 80
+      , "fold": 1
+      , "single_joint":true
+      , "video_model":false
+      , "use_aria":true
+      ,"use_pseudo":false
+      ,"use_rot":true
+      ,"coord": "aria" //"aria" for frame normalization, "global" for global coordinates
+      ,"future":true
+      ,"future_frames":15 //modify the number of future frames forecasting
+    , "output":"skeleton" //"aria","skeleton"
+    ,"norm":true
+    }
+    , "test": {
+      "name": "test_dataset"            // just name
+      , "dataset_type": "test_egoexo"         // "amass" 
+      , "dataroot": "./data_cameraready_fps60"  // path of testing dataset
+      , "dataloader_batch_size": 1     // batch size 1 | 16 | 32 | 48 | 64 | 128
+      , "num_input": 1                  // number of tracking devices  3 | 4
+      , "window_size": 80
+      , "fold": 2
+      , "single_joint":true
+      , "video_model":false
+      , "use_aria":true
+      ,"forecast_sec":0
+      , "split": "test"
+      ,"use_pseudo":false
+      ,"use_rot":true
+      ,"coord":"aria" //"aria" for frame normalization, "global" for global coordinates
+      ,"future":true
+      ,"future_frames":15 //modify the number of future frames forecasting
+      , "output":"skeleton" //"aria","skeleton"
+      ,"route": "/results/results_V2_video_norot/EgoExo_37K/videos" // modify the path of the model to be tested
+      ,"pred_input":true
+      
+    }
+  }
+
+  , "netG": {
+    "net_type": "EgoCast_future" 
+    , "num_layer": 3 
+    , "input_dim": 58        // 3 if only position. 7 if rotation is included, 58 for 17*3+7
+    , "output_dim": 132       // ouput channel number   #132
+    , "embed_dim": 256          // channel number of linear embedding for transformer
+    , "nhead": 8          // 
+    , "init_type": "kaiming_normal"         // "orthogonal" | "normal" | "uniform" | "xavier_normal" | "xavier_uniform" | "kaiming_normal" | "kaiming_uniform"
+    , "init_bn_type": "uniform"         // "uniform" | "constant"
+    , "init_gain": 0.2
+    , "video_model":false
+    , "use_rot": true
+  }
+
+  , "train": {
+    "G_lossfn_type": "l1"               // "l1" preferred | "l2sum" | "l2" | "ssim" 
+    , "G_lossfn_weight": 1.0            // default
+
+    , "G_optimizer_type": "adam"        // fixed, adam is enough
+    , "G_optimizer_lr": 1e-4           // learning rate
+    , "G_optimizer_clipgrad": null      // unused
+
+    , "G_scheduler_type": "MultiStepLR" // "MultiStepLR" is enough
+    , "G_scheduler_milestones": [60000, 120000, 180000, 240000, 300000, 360000]
+    , "G_scheduler_gamma": 0.5
+
+    , "G_regularizer_orthstep": null    // unused
+    , "G_regularizer_clipstep": null    // unused
+
+    , "checkpoint_test": 100000       // for testing
+    , "checkpoint_save": 10000           // for saving model
+    , "checkpoint_print": 500          // for print
+    , "G_param_strict":false
+  }
+}

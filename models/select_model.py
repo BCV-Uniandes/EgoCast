@@ -18,8 +18,8 @@ def define_Model(opt):
     if model == 'egocast':  # two inputs: L, C
         from models.model_egocast import ModelEgoCast as M
 
-    if model == 'egocast_multiprocessing':  # two inputs: L, C
-        from models.model_egocast import ModelEgoCastEval as M
+    else:
+        raise NotImplementedError('Model [{:s}] is not defined.'.format(model))
 
     m = M(opt)
 
@@ -44,9 +44,26 @@ def define_G(opt):
     opt_net = opt['netG']
     net_type = opt_net['net_type']
     device = torch.device('cuda' if opt['gpu_ids'] else 'cpu')
+    support_dir = opt['support_dir']
+    subject_gender = "male"
+    bm_fname = os.path.join(support_dir, 'body_models/smplh/{}/model.npz'.format(subject_gender))
+    dmpl_fname = os.path.join(support_dir, 'body_models/dmpls/{}/model.npz'.format(subject_gender))
+    num_betas = 16 # number of body parameters
+    num_dmpls = 8 # number of DMPL parameters
+    #body_model = BodyModel(bm_fname=bm_fname, num_betas=num_betas, num_dmpls=num_dmpls, dmpl_fname=dmpl_fname).to(device)
+
 
     if net_type == 'EgoCast':
         from models.network import EgoCast as net
+        netG = net(input_dim=opt_net['input_dim'],
+                   output_dim=opt_net['output_dim'],
+                   num_layer=opt_net['num_layer'],
+                   embed_dim=opt_net['embed_dim'],
+                   nhead = opt_net['nhead'],
+                   device = device,
+                   opt=opt)
+    elif net_type == 'EgoCast_future':
+        from models.network_future import EgoCast as net
         netG = net(input_dim=opt_net['input_dim'],
                    output_dim=opt_net['output_dim'],
                    num_layer=opt_net['num_layer'],
