@@ -21,6 +21,9 @@
 
 EgoCast is a novel framework for full-body pose forecasting. We use visual and proprioceptive cues to accurately predict body motion.
 
+
+![overview](overviewFig.png) **Our method leverages proprioception and visual streams to estimate 3D human pose.** (Top) For forecasting, we input previous camera poses and 3D full-body pose predictions through a forecasting head to estimate future 3D poses from _t+1_ to _t+n_. (Bottom) Since ground-truth 3D full-body poses are not available in real-case scenarios, we implement a current-frame estimation module that integrates camera poses and visual cues to estimate 3D pose at time _t_.
+
 ---
 ## Getting started
 
