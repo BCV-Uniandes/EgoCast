@@ -111,8 +111,11 @@ The Current-Frame Estimation Module predicts the full-body pose at the current t
    ```
 ## Forecasting Module
 
+Make sure you are on the `forecasting` branch before running the following command:  
 
-
+```bash
+python main_train_egocast.py -opt options/train_egocast_forecasting.json
+```
 ## Citations
 
 If you find EgoCast useful for your work please cite:
