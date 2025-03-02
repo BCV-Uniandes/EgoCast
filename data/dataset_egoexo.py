@@ -48,8 +48,8 @@ def my_collate(batch):
         'sequence':take_uid}
 
 class Dataset_EgoExo_images(Dataset):
-    def __init__(self, opt, root="/home/jpuentes/jpuentes2/EgoPoseAgosto/V2/EgoPose/EgoCast/dataset", slice_window=21,
-                image_folder="/home/jpuentes/jpuentes3/videos/image_takes/aria_214", use_pseudo=False):
+    def __init__(self, opt, root="dataset", slice_window=21,
+                image_folder="dataset/image_takes/aria_214", use_pseudo=False):
         super(Dataset_EgoExo_images,self).__init__()
 
         self.split = opt['split']
@@ -165,7 +165,6 @@ class Dataset_EgoExo_images(Dataset):
         self.image_folder =  image_folder
         self.poses_takes_uids = list(self.poses.keys())
         
-        breakpoint()
         print('Dataset lenght: {}'.format(len(self.poses)))
         print('Split: {}'.format(self.split))
         print('No Manually: {}'.format(no_man))
@@ -359,8 +358,8 @@ class Dataset_EgoExo_images(Dataset):
 
 
 class Dataset_EgoExo_images_test(Dataset):
-    def __init__(self, opt, root="/home/jpuentes/jpuentes2/EgoPoseAgosto/V2/EgoPose/EgoCast/dataset", slice_window=21,
-                image_folder="/home/jpuentes/jpuentes3/videos/image_takes/aria_214", use_pseudo=False):
+    def __init__(self, opt, root="dataset", slice_window=21,
+                image_folder= "dataset/image_takes/aria_214", use_pseudo=False):
         super(Dataset_EgoExo_images_test,self).__init__()
         self.root = root
         self.split = opt['split']
@@ -453,25 +452,7 @@ class Dataset_EgoExo_images_test(Dataset):
             T.Resize(224),
             T.ToTensor(),
             T.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
-        breakpoint()
-        #IMU
-        #removed_value = self.poses.pop('56c35d79-acb1-47a1-8590-7e5cb2585ee5') #15k, 30k, 60K, 90K
-        #removed_value = self.poses.pop('75fb2747-c944-45dd-ac2e-b5ea83655d5a') #15k, 30k, 60K, 90K
-        #removed_value = self.poses.pop('8aa93792-6ac4-46c3-aecc-23650fe2ce40') #15k, 30k
-        #removed_value = self.poses.pop('98620edf-da0e-4a19-8969-ef1a6e476d61') #15k, 30k
-        #removed_value = self.poses.pop('08beaba1-8b2b-4827-85a3-61223ad4ea13') #15k, 30k, 60K, 90K
-
-        #IMU+VID
-        #removed_value = self.poses.pop('cdd0ce74-4698-4394-aaf2-00e159577d3f') #15, 30k, 60k, 90k, 120k
-        #removed_value = self.poses.pop('8aa93792-6ac4-46c3-aecc-23650fe2ce40') #15, 30k
-        #removed_value = self.poses.pop('98620edf-da0e-4a19-8969-ef1a6e476d61') #15k, 30k
-        #removed_value = self.poses.pop('2227ff92-8645-479e-a099-bd8025080e62') #15, 30k, 60k, 90k, 120k
-        #removed_value = self.poses.pop('08beaba1-8b2b-4827-85a3-61223ad4ea13') #15, 30k, 60k, 90k, 120k
-        #removed_value = self.poses.pop('56c35d79-acb1-47a1-8590-7e5cb2585ee5') #15, 30k, 60k, 90k, 120k
-        #removed_value = self.poses.pop('75fb2747-c944-45dd-ac2e-b5ea83655d5a') #15, 30k,60k, 90k, 120k
-
-
-
+    
         self.image_folder =  image_folder
         self.poses_takes_uids = list(self.poses.keys())
         print('Dataset lenght: {}'.format(len(self.poses)))
